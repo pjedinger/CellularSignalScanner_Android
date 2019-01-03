@@ -12,26 +12,27 @@ import android.telephony.CellSignalStrengthGsm;
 import android.telephony.CellSignalStrengthLte;
 import android.telephony.TelephonyManager;
 import android.util.Pair;
-import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.util.List;
 
-public class GetScanInfo extends AsyncTask<TelephonyManager, Integer, ScanInfo> {
+import ca.hss.heatmaplib.HeatMap;
+
+public class ScanInfoTask extends AsyncTask<TelephonyManager, Integer, ScanInfo> {
 
     SeekBar signalSeekBar;
-    ProgressBar signalProgressBar;
     TextView dbmLevelTexView;
     TextView connectionTextView;
     TextView providerTextView;
+    HeatMap heatMap;
 
     MainActivity context;
 
     private int best;
     private int worst;
 
-    public GetScanInfo(MainActivity context) {
+    public ScanInfoTask(MainActivity context) {
         this.context = context;
         best = -60;
         worst = -115;
@@ -89,21 +90,26 @@ public class GetScanInfo extends AsyncTask<TelephonyManager, Integer, ScanInfo> 
     protected void onPostExecute(ScanInfo scanInfo) {
         super.onPostExecute(scanInfo);
         signalSeekBar = context.findViewById(R.id.signal_seekbar);
-        signalProgressBar = context.findViewById(R.id.signal_progressbar);
         dbmLevelTexView = context.findViewById(R.id.signalstrength_textview);
         connectionTextView = context.findViewById(R.id.connection_textview);
         providerTextView = context.findViewById(R.id.provider_textview);
+        heatMap = context.findViewById(R.id.signal_heatmap);
 
         Pair<Integer, Integer>p = calcBarSettings(scanInfo.dbm);
         signalSeekBar.setProgress(p.first);
         signalSeekBar.setMax(p.second);
 
-        signalProgressBar.setProgress(p.first);
-        signalProgressBar.setMax(p.second);
-
-        dbmLevelTexView.setText(scanInfo.dbm +"");
+        SignalQuality sq = SignalQuality.getSignalQuality(scanInfo.dbm);
+        dbmLevelTexView.setText(scanInfo.dbm + " [" +sq.name()+ "]");
         connectionTextView.setText(scanInfo.connectionType.name());
         providerTextView.setText(scanInfo.provider);
+
+        int width = heatMap.getWidth();
+        int height = heatMap.getHeight();
+        HeatMap.DataPoint dataPoint = new HeatMap.DataPoint(0.5f, 0.5f, 100);
+        heatMap.addData(dataPoint);
+        //heatMap.forceRefresh();
+
     }
 
 

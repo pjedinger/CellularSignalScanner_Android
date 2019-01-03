@@ -1,39 +1,23 @@
 package fh_ooe.at.cellularsignalscanner;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.os.Handler;
-import android.os.SystemClock;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.telephony.CellInfo;
-import android.telephony.CellInfoCdma;
-import android.telephony.CellInfoGsm;
-import android.telephony.CellInfoLte;
-import android.telephony.CellInfoWcdma;
-import android.telephony.CellSignalStrengthCdma;
-import android.telephony.CellSignalStrengthGsm;
-import android.telephony.CellSignalStrengthLte;
 import android.telephony.TelephonyManager;
-import android.view.View;
-import android.widget.Button;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import ca.hss.heatmaplib.HeatMap;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    String text = "";
+    HeatMap heatMap;
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -45,6 +29,29 @@ public class MainActivity extends AppCompatActivity {
         String[] perms = {"android.permission.FINE_LOCATION"};
         int permsRequestCode = 200;
         requestPermissions(perms, permsRequestCode);
+
+
+        heatMap = findViewById(R.id.signal_heatmap);
+        heatMap.setMinimum(0.0);
+        heatMap.setMaximum(100.0);
+
+        //add random data to the map
+//        Random rand = new Random();
+//        for (int i = 0; i < 20; i++) {
+//            HeatMap.DataPoint point = new HeatMap.DataPoint(rand.nextFloat(), rand.nextFloat(), rand.nextDouble() * 100.0);
+//            heatMap.addData(point);
+//        }
+//        heatMap.setMarkerCallback(new HeatMapMarkerCallback.CircleHeatMapMarker(0xff9400D3));
+
+//        heatMap.setMarkerCallback(new HeatMapMarkerCallback() {
+//            @Override
+//            public void drawMarker(Canvas canvas, float v, float v1) {
+//                Paint paint = new Paint();
+//                int color = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary);
+//                paint.setColor(color);
+//                canvas.drawCircle(5, 5, 360, paint);
+//            }
+//        });
 
     }
 
@@ -59,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         }
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         ScanInfoService scanInfoService = new ScanInfoService(telephonyManager, this);
+        HeatMapDrawService heatMapDrawService = new HeatMapDrawService(this);
     }
 
     @Override
