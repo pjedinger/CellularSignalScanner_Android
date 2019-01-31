@@ -25,7 +25,7 @@ import fh_ooe.at.cellularsignalscanner.R;
 import fh_ooe.at.cellularsignalscanner.data.ScanDataPoint;
 import fh_ooe.at.cellularsignalscanner.data.ScanInfo;
 import fh_ooe.at.cellularsignalscanner.data.SignalQuality;
-import fh_ooe.at.cellularsignalscanner.activities.MainActivity;
+import fh_ooe.at.cellularsignalscanner.activities.ScanActivity;
 
 public class ScanInfoTask extends AsyncTask<TelephonyManager, Integer, Pair<ScanInfo, Location>>{
 
@@ -37,14 +37,14 @@ public class ScanInfoTask extends AsyncTask<TelephonyManager, Integer, Pair<Scan
 
     private Location location;
 
-    private MainActivity context;
+    private ScanActivity context;
 
     private int best;
     private int worst;
     Location referenceLocation;
 
     int heatMapRadius = 25;
-    public ScanInfoTask(MainActivity context, Location location, Location referenceLocation) {
+    public ScanInfoTask(ScanActivity context, Location location, Location referenceLocation) {
         this.context = context;
         this.location = location;
         best = -60;

@@ -12,6 +12,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 import android.util.ArrayMap;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,7 @@ import fh_ooe.at.cellularsignalscanner.service.HeatMapDrawService;
 import fh_ooe.at.cellularsignalscanner.data.ScanDataPoint;
 import fh_ooe.at.cellularsignalscanner.service.ScanInfoService;
 
-public class MainActivity extends AppCompatActivity {
+public class ScanActivity extends AppCompatActivity {
 
 
     public HeatMap heatMap;
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_scan);
 
         dataPoints = new ArrayList<>();
         String[] perms = {"android.permission.FINE_LOCATION"};
@@ -52,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
         //build a color gradient in HSV from red at the center to green at the outside
         for (int i = 0; i < 21; i++) {
             float stop = ((float)i) / 20.0f;
+            //colors here are ids - deswegen 6 stellen --> example
+            //int primaryColor = getColor(R.color.colorPrimary); //definition im colors.xml
             int color = doGradient(i * 5, 0, 100, 0xB22222, 0x008000);
             colors.put(stop, color);
         }
@@ -126,5 +130,20 @@ public class MainActivity extends AppCompatActivity {
     }
     private static float interpolate(float a, float b, float proportion) {
         return (a + ((b - a) * proportion));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.scan_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.menu.scan_menu){
+            //stopservice
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -8,16 +8,16 @@ import android.os.IBinder;
 import ca.hss.heatmaplib.HeatMap;
 import fh_ooe.at.cellularsignalscanner.R;
 import fh_ooe.at.cellularsignalscanner.data.ScanDataPoint;
-import fh_ooe.at.cellularsignalscanner.activities.MainActivity;
+import fh_ooe.at.cellularsignalscanner.activities.ScanActivity;
 
 public class HeatMapDrawService extends Service{
     Handler handler;
     Runnable runnable;
-    MainActivity context;
+    ScanActivity context;
     HeatMap heatMap;
     private final int REFRESH_RATE_MS = 2000;
 
-    public HeatMapDrawService(final MainActivity context) {
+    public HeatMapDrawService(final ScanActivity context) {
         this.context = context;
         this.heatMap = context.findViewById(R.id.signal_heatmap);
 

@@ -16,13 +16,13 @@ import android.util.Log;
 import android.util.Pair;
 
 import fh_ooe.at.cellularsignalscanner.data.ScanInfo;
-import fh_ooe.at.cellularsignalscanner.activities.MainActivity;
+import fh_ooe.at.cellularsignalscanner.activities.ScanActivity;
 
 public class ScanInfoService extends Service implements LocationListener {
     Handler handler;
     Runnable runnable;
     TelephonyManager telephonyManager;
-    MainActivity context;
+    ScanActivity context;
 
     Location referenceLocation = null;
     private final int REFRESH_RATE_MS = 2000;
@@ -37,7 +37,7 @@ public class ScanInfoService extends Service implements LocationListener {
 
     Location location;
 
-    public ScanInfoService(final TelephonyManager telephonyManager, final MainActivity context) {
+    public ScanInfoService(final TelephonyManager telephonyManager, final ScanActivity context) {
         this.telephonyManager = telephonyManager;
         this.context = context;
 
