@@ -1,6 +1,7 @@
 package fh_ooe.at.cellularsignalscanner;
 
 import android.annotation.SuppressLint;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.telephony.CellInfo;
 import android.telephony.CellInfoCdma;
@@ -11,6 +12,7 @@ import android.telephony.CellSignalStrengthCdma;
 import android.telephony.CellSignalStrengthGsm;
 import android.telephony.CellSignalStrengthLte;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.util.Pair;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -19,13 +21,13 @@ import java.util.List;
 
 import ca.hss.heatmaplib.HeatMap;
 
-public class ScanInfoTask extends AsyncTask<TelephonyManager, Integer, ScanInfo> {
+public class ScanInfoTask extends AsyncTask<TelephonyManager, Integer, Pair<ScanInfo, Location>>{
 
-    SeekBar signalSeekBar;
-    TextView dbmLevelTexView;
-    TextView connectionTextView;
-    TextView providerTextView;
-    HeatMap heatMap;
+    private SeekBar signalSeekBar;
+    private TextView dbmLevelTexView;
+    private TextView connectionTextView;
+    private TextView providerTextView;
+    private HeatMap heatMap;
 
     private Location location;
 
