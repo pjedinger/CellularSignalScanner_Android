@@ -42,8 +42,6 @@ public class HistoryListAdapter extends ArrayAdapter<HistoryEntry> implements Vi
 
             HistoryActivity historyActivity = (HistoryActivity) mContext;
             historyActivity.historyEntrySelected(historyEntry);
-
-
         }
 
         private int lastPosition = -1;

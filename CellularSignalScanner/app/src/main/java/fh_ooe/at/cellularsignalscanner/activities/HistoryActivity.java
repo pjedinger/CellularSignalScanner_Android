@@ -1,5 +1,6 @@
 package fh_ooe.at.cellularsignalscanner.activities;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -47,5 +48,7 @@ public class HistoryActivity extends AppCompatActivity {
 
     public void historyEntrySelected(HistoryEntry historyEntry) {
         Toast.makeText(this, "Entry with Name: "+historyEntry.getName()+" clicked", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(this, ScanResultActivity.class);
+        startActivity(i);
     }
 }

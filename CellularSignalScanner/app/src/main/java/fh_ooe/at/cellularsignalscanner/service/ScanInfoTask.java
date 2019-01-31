@@ -29,12 +29,6 @@ import fh_ooe.at.cellularsignalscanner.activities.ScanActivity;
 
 public class ScanInfoTask extends AsyncTask<TelephonyManager, Integer, Pair<ScanInfo, Location>>{
 
-    private SeekBar signalSeekBar;
-    private TextView dbmLevelTexView;
-    private TextView connectionTextView;
-    private TextView providerTextView;
-    private HeatMap heatMap;
-
     private Location location;
 
     private ScanActivity context;
@@ -116,20 +110,20 @@ public class ScanInfoTask extends AsyncTask<TelephonyManager, Integer, Pair<Scan
         double disty = scanInfo.second.getLatitude() - location.getLatitude();
         //Log.d("Measurements", "Dist x: "+distx + " Dist y: " + disty);
 
-        signalSeekBar = context.findViewById(R.id.signal_seekbar);
-        dbmLevelTexView = context.findViewById(R.id.signalstrength_textview);
-        connectionTextView = context.findViewById(R.id.connection_textview);
-        providerTextView = context.findViewById(R.id.provider_textview);
+        SeekBar seekBar = context.findViewById(R.id.scan_seekbar);
+        TextView currentDBMTextView = context.findViewById(R.id.scan_currentdbm_textview);
+        TextView connectionTextView = context.findViewById(R.id.scan_connection_textview);
+        TextView qualityTextView = context.findViewById(R.id.scan_quality_textview);
         //heatMap = context.findViewById(R.id.signal_heatmap);
 
         Pair<Integer, Integer>p = calcBarSettings(scanInfo.first.getDbm());
-        signalSeekBar.setProgress(p.first);
-        signalSeekBar.setMax(p.second);
+        seekBar.setProgress(p.first);
+        seekBar.setMax(p.second);
 
         SignalQuality sq = SignalQuality.getSignalQuality(scanInfo.first.getDbm());
-        dbmLevelTexView.setText(scanInfo.first.getDbm() + " [" +sq.name()+ "]");
-        connectionTextView.setText(scanInfo.first.getConnectionType().name());
-        providerTextView.setText(scanInfo.first.getProvider());
+        qualityTextView.setText(sq.name());
+        currentDBMTextView.setText(scanInfo.first.getDbm()+" dbm");
+        connectionTextView.setText(scanInfo.first.getConnectionType().name() + ", "+scanInfo.first.getProvider());
 
         int width = context.heatMap.getWidth();
         int height = context.heatMap.getHeight();

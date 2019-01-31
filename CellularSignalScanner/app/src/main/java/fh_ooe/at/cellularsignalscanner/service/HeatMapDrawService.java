@@ -19,7 +19,7 @@ public class HeatMapDrawService extends Service{
 
     public HeatMapDrawService(final ScanActivity context) {
         this.context = context;
-        this.heatMap = context.findViewById(R.id.signal_heatmap);
+        this.heatMap = context.findViewById(R.id.scan_heatmap);
 
         handler = new Handler();
         runnable = new Runnable() {

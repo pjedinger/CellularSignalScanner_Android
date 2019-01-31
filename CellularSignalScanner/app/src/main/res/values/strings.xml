@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Mobile Signal Scanner</string>
     <string name="history">History</string>
-    <string name="signal_strength">signal strength:</string>
-    <string name="provider">provider:</string>
-    <string name="connection">connection:</string>
+    <string name="signal_strength">Signal Strength:</string>
+    <string name="provider">Provider:</string>
+    <string name="connection">Connection:</string>
     <string name="info_overview">Overview</string>
     <string name="info_signal">Signal</string>
     <string name="info_signalquality">Signal quality</string>
@@ -13,4 +13,7 @@
     <string name="info_connection_text">The type of mobile connection you have is based on the cell towers and their capabilities around you. These are the current available connection types ordered descending by datarate : LTE (4G) > UMTS (3G) > GSM (2G) </string>
     <string name="info_signalquality_text">The quality of the signal is affected by many different factors. Such as the distance between the device and the cell tower, but also the objects and their materials in between. Concrete is the most common material to cause connection problems. Signal quality can also be affected by an overloaded cell tower.</string>
     <string name="cellphone_communicating_with_cell_tower">cellphone communicating with cell tower</string>
+    <string name="min_label">min</string>
+    <string name="max_label">max</string>
+    <string name="avg_label">Ø</string>
 </resources>

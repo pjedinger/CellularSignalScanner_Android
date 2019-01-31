@@ -14,6 +14,9 @@ import android.telephony.TelephonyManager;
 import android.util.ArrayMap;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.SeekBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +47,7 @@ public class ScanActivity extends AppCompatActivity {
         requestPermissions(perms, permsRequestCode);
 
 
-        heatMap = findViewById(R.id.signal_heatmap);
+        heatMap = findViewById(R.id.scan_heatmap);
         heatMap.setMinimum(0.0);
         heatMap.setMaximum(100.0);
         heatMap.setOpacity(0);
@@ -65,23 +68,15 @@ public class ScanActivity extends AppCompatActivity {
 
        heatMap.setColorStops(colors);
 
-        //add random data to the map
-//        Random rand = new Random();
-//        for (int i = 0; i < 20; i++) {
-//            HeatMap.DataPoint point = new HeatMap.DataPoint(rand.nextFloat(), rand.nextFloat(), rand.nextDouble() * 100.0);
-//            heatMap.addData(point);
-//        }
-//        heatMap.setMarkerCallback(new HeatMapMarkerCallback.CircleHeatMapMarker(0xff9400D3));
-
-//        heatMap.setMarkerCallback(new HeatMapMarkerCallback() {
-//            @Override
-//            public void drawMarker(Canvas canvas, float v, float v1) {
-//                Paint paint = new Paint();
-//                int color = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary);
-//                paint.setColor(color);
-//                canvas.drawCircle(5, 5, 360, paint);
-//            }
-//        });
+        //do nothing when touched
+        SeekBar seekBar = findViewById(R.id.scan_seekbar);
+        seekBar.setEnabled(false);
+        seekBar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return false;
+            }
+        });
 
     }
 

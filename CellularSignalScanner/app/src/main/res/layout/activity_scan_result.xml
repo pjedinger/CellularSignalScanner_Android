@@ -4,6 +4,197 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".activities.ScanResultActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/scan_singalstrength_constraintlayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/scan_information_constraintlayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/scan_signalstrength_maximum_label_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/max_label"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scan_signalstrength_minimum_textview"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/scanresult_signalstrength_minimum_label_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/min_label"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/scan_signalstrength_maximum_textview"
+            app:layout_constraintEnd_toEndOf="@+id/scan_signalstrength_maximum_label_textview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scan_signalstrength_average_textview"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/scanresult_signalstrength_average_label_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/avg_label"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            tools:layout_editor_absoluteX="10dp"
+            tools:layout_editor_absoluteY="21dp" />
+
+        <TextView
+            android:id="@+id/scan_signalstrength_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="@string/signal_strength"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/scan_signalstrength_average_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread" />
+
+        <TextView
+            android:id="@+id/scan_signalstrength_average_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="-90 dBm"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/scan_signalstrength_minimum_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/scan_signalstrength_minimum_textview"
+            app:layout_constraintTop_toBottomOf="@+id/scan_signalstrength_textview" />
+
+        <TextView
+            android:id="@+id/scan_signalstrength_maximum_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:text="70 dBm"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/scan_signalstrength_maximum_label_textview"
+            app:layout_constraintTop_toBottomOf="@+id/scan_signalstrength_minimum_textview" />
+
+        <TextView
+            android:id="@+id/scan_signalstrength_minimum_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="-110 dBm"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/scan_signalstrength_maximum_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/scan_signalstrength_maximum_textview"
+            app:layout_constraintTop_toBottomOf="@+id/scan_signalstrength_average_textview" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <ca.hss.heatmaplib.HeatMap
+        android:id="@+id/scanresult_heatmap"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/white_background_corners"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scan_information_constraintlayout"
+        app:maxOpacity="255"
+        app:minOpacity="0" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/scan_information_constraintlayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/scan_singalstrength_constraintlayout"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/scan_datelocation_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="1.12.2018, Linz"
+            android:textAlignment="textEnd"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/scan_connection_textview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scan_duration_textview" />
+
+        <TextView
+            android:id="@+id/scan_duration_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20 sec"
+            android:textAlignment="textEnd"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/scan_datelocation_textview"
+            app:layout_constraintEnd_toEndOf="@+id/scan_connection_textview"
+            app:layout_constraintTop_toBottomOf="@+id/scan_connection_textview" />
+
+        <TextView
+            android:id="@+id/scan_quality_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Quality: VERY GOOD"
+            android:textAlignment="textEnd"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/scan_connection_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/scan_connection_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="4G, UPC"
+            android:textAlignment="textEnd"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/scan_duration_textview"
+            app:layout_constraintEnd_toEndOf="@+id/scan_quality_textview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scan_quality_textview" />
+
+        <ImageView
+            android:id="@+id/scanresult_duration_clock_imageview"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginEnd="5dp"
+            android:cropToPadding="false"
+            android:src="@drawable/clock_white"
+            app:layout_constraintBottom_toTopOf="@+id/scan_datelocation_textview"
+            app:layout_constraintEnd_toStartOf="@+id/scan_duration_textview"
+            app:layout_constraintTop_toTopOf="@+id/scan_duration_textview" />
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -10,109 +10,228 @@
     tools:layout_editor_absoluteY="81dp">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/scan_panel_constraintlayout"
+        android:id="@+id/scan_information_constraintlayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toEndOf="@+id/scan_singalstrength_constraintlayout"
+        app:layout_constraintTop_toBottomOf="@+id/scan_seekbar">
 
         <TextView
-            android:id="@+id/signalstrength_label_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="22dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:text="@string/signal_strength"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/signal_seekbar" />
-
-        <TextView
-            android:id="@+id/signalstrength_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0 dbm"
-            android:textColor="@color/white"
-            app:layout_constraintBaseline_toBaselineOf="@+id/signalstrength_label_textview"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/signalstrength_label_textview" />
-
-        <TextView
-            android:id="@+id/provider_label_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:text="@string/provider"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/connection_label_textview" />
-
-        <TextView
-            android:id="@+id/provider_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Unknown"
-            android:textColor="@color/white"
-            app:layout_constraintBaseline_toBaselineOf="@+id/provider_label_textview"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/signalstrength_label_textview" />
-
-        <TextView
-            android:id="@+id/connection_label_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:text="@string/connection"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/signalstrength_label_textview" />
-
-        <TextView
-            android:id="@+id/connection_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:text="LTE"
-            android:textColor="@color/white"
-            app:layout_constraintBaseline_toBaselineOf="@+id/connection_label_textview"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/signalstrength_label_textview" />
-
-        <SeekBar
-            android:id="@+id/signal_seekbar"
+            android:id="@+id/scan_datelocation_textview"
             android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:max="100"
-            android:paddingEnd="0dp"
-            android:paddingStart="0dp"
-            android:progress="50"
-            android:progressDrawable="@drawable/seekbar_style"
-            android:thumb="@drawable/custom_thumb"
+            android:layout_height="wrap_content"
+            android:text="1.12.2018, Linz"
+            android:textAlignment="textEnd"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/scan_connection_textview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scan_duration_textview" />
+
+        <TextView
+            android:id="@+id/scan_duration_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20 sec"
+            android:textAlignment="textEnd"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/scan_datelocation_textview"
+            app:layout_constraintEnd_toEndOf="@+id/scan_connection_textview"
+            app:layout_constraintTop_toBottomOf="@+id/scan_connection_textview" />
+
+        <TextView
+            android:id="@+id/scan_quality_textview"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:text="VERY GOOD"
+            android:textAlignment="textEnd"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/scan_connection_textview"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/scan_connection_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="4G, UPC"
+            android:textAlignment="textEnd"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/scan_duration_textview"
+            app:layout_constraintEnd_toEndOf="@+id/scan_quality_textview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scan_quality_textview" />
+
+        <ImageView
+            android:id="@+id/scan_duration_clock_imageview"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginEnd="5dp"
+            android:cropToPadding="false"
+            android:src="@drawable/clock_white"
+            app:layout_constraintBottom_toTopOf="@+id/scan_datelocation_textview"
+            app:layout_constraintEnd_toStartOf="@+id/scan_duration_textview"
+            app:layout_constraintTop_toTopOf="@+id/scan_duration_textview" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/scan_singalstrength_constraintlayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/scan_information_constraintlayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scan_seekbar">
+
+        <TextView
+            android:id="@+id/scan_signalstrength_maximum_label_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/max_label"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scan_signalstrength_minimum_textview"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/scan_signalstrength_minimum_label_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/min_label"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/scan_signalstrength_maximum_textview"
+            app:layout_constraintEnd_toEndOf="@+id/scan_signalstrength_maximum_label_textview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scan_signalstrength_average_textview"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/scan_signalstrength_average_label_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/avg_label"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/scan_signalstrength_minimum_label_textview"
+            app:layout_constraintEnd_toEndOf="@+id/scan_signalstrength_maximum_label_textview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scan_signalstrength_textview" />
+
+        <TextView
+            android:id="@+id/scan_signalstrength_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/signal_strength"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/scan_signalstrength_average_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread" />
+
+        <TextView
+            android:id="@+id/scan_signalstrength_average_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="0 dBm"
+            android:textAlignment="textEnd"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/scan_signalstrength_minimum_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/scan_signalstrength_minimum_textview"
+            app:layout_constraintTop_toBottomOf="@+id/scan_signalstrength_textview" />
+
+        <TextView
+            android:id="@+id/scan_signalstrength_maximum_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:text="0 dBm"
+            android:textAlignment="textEnd"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/scan_signalstrength_maximum_label_textview"
+            app:layout_constraintTop_toBottomOf="@+id/scan_signalstrength_minimum_textview" />
+
+        <TextView
+            android:id="@+id/scan_signalstrength_minimum_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="0 dBm"
+            android:textAlignment="textEnd"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/scan_signalstrength_maximum_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/scan_signalstrength_maximum_textview"
+            app:layout_constraintTop_toBottomOf="@+id/scan_signalstrength_average_textview" />
 
     </android.support.constraint.ConstraintLayout>
 
     <ca.hss.heatmaplib.HeatMap
-        android:id="@+id/signal_heatmap"
+        android:id="@+id/scan_heatmap"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/white_background_corners"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scan_panel_constraintlayout"
+        app:layout_constraintTop_toBottomOf="@+id/scan_information_constraintlayout"
+        app:layout_constraintVertical_bias="1.0"
         app:maxOpacity="255"
         app:minOpacity="0" />
+
+    <SeekBar
+        android:id="@+id/scan_seekbar"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:max="100"
+        android:paddingEnd="0dp"
+        android:paddingStart="0dp"
+        android:progress="50"
+        android:progressDrawable="@drawable/seekbar_style"
+        android:thumb="@drawable/custom_thumb"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/scan_currentdbm_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-100 dbm"
+        android:textColor="@color/white"
+        android:textSize="26dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/scan_heatmap"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scan_seekbar" />
 
 </android.support.constraint.ConstraintLayout>

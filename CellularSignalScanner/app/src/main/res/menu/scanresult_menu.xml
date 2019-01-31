@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <item
-        android:id="@+id/stop_scan"
-        android:title="stop"
-        android:icon="@drawable/stop_white"
+        android:id="@+id/scan_result_edit"
+        android:title="edit"
+        android:icon="@drawable/edit_white"
         app:showAsAction="withText|always"/>
 
 </menu>
