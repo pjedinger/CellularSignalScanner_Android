@@ -1,6 +1,15 @@
 <resources>
-    <string name="app_name">CellularSignalScanner</string>
+    <string name="app_name">Mobile Signal Scanner</string>
     <string name="signal_strength">signal strength:</string>
     <string name="provider">provider:</string>
     <string name="connection">connection:</string>
+    <string name="info_overview">Overview</string>
+    <string name="info_signal">Signal</string>
+    <string name="info_signalquality">Signal quality</string>
+    <string name="info_connection">Connection types</string>
+    <string name="info_overview_text">This app reads the mobile signal data of your device and displays it in a heatmap according to your GPS location.</string>
+    <string name="info_signal_text">The signal strength is measured in dbm (unit of level used to express a power ratio - decibel per one milliwatt). It ranges from -60 dbm to -120 dbm, where -60 dbm represents a perfect signal and -120 dbm a signal which is barely existent. </string>
+    <string name="info_connection_text">The type of mobile connection you have is based on the cell towers and their capabilities around you. These are the current available connection types ordered descending by datarate : LTE (4G) > UMTS (3G) > GSM (2G) </string>
+    <string name="info_signalquality_text">The quality of the signal is affected by many different factors. Such as the distance between the device and the cell tower, but also the objects and their materials in between. Concrete is the most common material to cause connection problems. Signal quality can also be affected by an overloaded cell tower.</string>
+    <string name="cellphone_communicating_with_cell_tower">cellphone communicating with cell tower</string>
 </resources>
