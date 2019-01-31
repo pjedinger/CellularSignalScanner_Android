@@ -1,4 +1,4 @@
-package fh_ooe.at.cellularsignalscanner;
+package fh_ooe.at.cellularsignalscanner.data;
 
 import android.location.Location;
 import android.util.Log;

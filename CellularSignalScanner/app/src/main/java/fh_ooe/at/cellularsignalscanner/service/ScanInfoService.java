@@ -1,4 +1,4 @@
-package fh_ooe.at.cellularsignalscanner;
+package fh_ooe.at.cellularsignalscanner.service;
 
 import android.Manifest;
 import android.app.Service;
@@ -14,14 +14,15 @@ import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.util.Pair;
-import android.widget.ProgressBar;
+
+import fh_ooe.at.cellularsignalscanner.data.ScanInfo;
+import fh_ooe.at.cellularsignalscanner.activities.MainActivity;
 
 public class ScanInfoService extends Service implements LocationListener {
     Handler handler;
     Runnable runnable;
     TelephonyManager telephonyManager;
     MainActivity context;
-    ProgressBar progressBar;
 
     Location referenceLocation = null;
     private final int REFRESH_RATE_MS = 2000;
@@ -39,7 +40,6 @@ public class ScanInfoService extends Service implements LocationListener {
     public ScanInfoService(final TelephonyManager telephonyManager, final MainActivity context) {
         this.telephonyManager = telephonyManager;
         this.context = context;
-        progressBar = context.findViewById(R.id.signal_progressbar);
 
         //Create Location Manager and check which Providers are enabled.
         final LocationManager locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);

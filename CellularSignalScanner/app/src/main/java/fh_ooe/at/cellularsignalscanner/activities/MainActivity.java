@@ -1,10 +1,9 @@
-package fh_ooe.at.cellularsignalscanner;
+package fh_ooe.at.cellularsignalscanner.activities;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,17 +16,18 @@ import android.util.ArrayMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
-import java.util.Stack;
-import java.util.concurrent.ArrayBlockingQueue;
 
 import ca.hss.heatmaplib.HeatMap;
+import fh_ooe.at.cellularsignalscanner.R;
+import fh_ooe.at.cellularsignalscanner.service.HeatMapDrawService;
+import fh_ooe.at.cellularsignalscanner.data.ScanDataPoint;
+import fh_ooe.at.cellularsignalscanner.service.ScanInfoService;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    HeatMap heatMap;
-    List<ScanDataPoint> dataPoints;
+    public HeatMap heatMap;
+    public List<ScanDataPoint> dataPoints;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)

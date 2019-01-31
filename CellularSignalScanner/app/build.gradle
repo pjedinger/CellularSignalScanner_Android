@@ -16,6 +16,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {
+        main {
+            java.srcDirs('build/generated/not_namespaced_r_class_sources/debug/processDebugResources/r')
+        }
+    }
 }
 
 dependencies {

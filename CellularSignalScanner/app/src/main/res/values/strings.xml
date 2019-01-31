@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Mobile Signal Scanner</string>
+    <string name="history">History</string>
     <string name="signal_strength">signal strength:</string>
     <string name="provider">provider:</string>
     <string name="connection">connection:</string>

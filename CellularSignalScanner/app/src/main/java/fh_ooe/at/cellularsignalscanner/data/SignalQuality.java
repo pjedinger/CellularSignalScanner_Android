@@ -1,4 +1,4 @@
-package fh_ooe.at.cellularsignalscanner;
+package fh_ooe.at.cellularsignalscanner.data;
 
 public enum SignalQuality {
     VERY_BAD(-110), BAD(-100), AVERAGE(-90), GOOD(-80), VERY_GOOD(-70);

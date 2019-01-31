@@ -1,4 +1,4 @@
-package fh_ooe.at.cellularsignalscanner;
+package fh_ooe.at.cellularsignalscanner.service;
 
 import android.app.Service;
 import android.content.Intent;
@@ -6,6 +6,9 @@ import android.os.Handler;
 import android.os.IBinder;
 
 import ca.hss.heatmaplib.HeatMap;
+import fh_ooe.at.cellularsignalscanner.R;
+import fh_ooe.at.cellularsignalscanner.data.ScanDataPoint;
+import fh_ooe.at.cellularsignalscanner.activities.MainActivity;
 
 public class HeatMapDrawService extends Service{
     Handler handler;
@@ -23,7 +26,7 @@ public class HeatMapDrawService extends Service{
             @Override
             public void run() {
                 for(ScanDataPoint element : context.dataPoints) {
-                    heatMap.addData(new HeatMap.DataPoint(element.x, element.y, element.val));
+                    heatMap.addData(new HeatMap.DataPoint(element.getX(), element.getY(), element.getVal()));
                 }
                 heatMap.forceRefresh();
                 handler.postDelayed(runnable, REFRESH_RATE_MS);

@@ -1,4 +1,4 @@
-package fh_ooe.at.cellularsignalscanner;
+package fh_ooe.at.cellularsignalscanner.service;
 
 import android.annotation.SuppressLint;
 import android.location.Location;
@@ -20,6 +20,12 @@ import android.widget.TextView;
 import java.util.List;
 
 import ca.hss.heatmaplib.HeatMap;
+import fh_ooe.at.cellularsignalscanner.data.ConnectionType;
+import fh_ooe.at.cellularsignalscanner.R;
+import fh_ooe.at.cellularsignalscanner.data.ScanDataPoint;
+import fh_ooe.at.cellularsignalscanner.data.ScanInfo;
+import fh_ooe.at.cellularsignalscanner.data.SignalQuality;
+import fh_ooe.at.cellularsignalscanner.activities.MainActivity;
 
 public class ScanInfoTask extends AsyncTask<TelephonyManager, Integer, Pair<ScanInfo, Location>>{
 
@@ -116,14 +122,14 @@ public class ScanInfoTask extends AsyncTask<TelephonyManager, Integer, Pair<Scan
         providerTextView = context.findViewById(R.id.provider_textview);
         //heatMap = context.findViewById(R.id.signal_heatmap);
 
-        Pair<Integer, Integer>p = calcBarSettings(scanInfo.first.dbm);
+        Pair<Integer, Integer>p = calcBarSettings(scanInfo.first.getDbm());
         signalSeekBar.setProgress(p.first);
         signalSeekBar.setMax(p.second);
 
-        SignalQuality sq = SignalQuality.getSignalQuality(scanInfo.first.dbm);
-        dbmLevelTexView.setText(scanInfo.first.dbm + " [" +sq.name()+ "]");
-        connectionTextView.setText(scanInfo.first.connectionType.name());
-        providerTextView.setText(scanInfo.first.provider);
+        SignalQuality sq = SignalQuality.getSignalQuality(scanInfo.first.getDbm());
+        dbmLevelTexView.setText(scanInfo.first.getDbm() + " [" +sq.name()+ "]");
+        connectionTextView.setText(scanInfo.first.getConnectionType().name());
+        providerTextView.setText(scanInfo.first.getProvider());
 
         int width = context.heatMap.getWidth();
         int height = context.heatMap.getHeight();
@@ -133,15 +139,15 @@ public class ScanInfoTask extends AsyncTask<TelephonyManager, Integer, Pair<Scan
         //dp = new HeatMap.DataPoint((float)(0.5f+distx/heatMapRadius),(float)(0.5f+disty/heatMapRadius),calcBarSettings(scanInfo.first.dbm).first);
         if(scanInfo.second.getLongitude() < location.getLongitude()){
             if(scanInfo.second.getLatitude() < location.getLatitude()){
-                dp = new ScanDataPoint(0.5f+dist/heatMapRadius,0.5f+dist/heatMapRadius,calcBarSettings(scanInfo.first.dbm).first);
+                dp = new ScanDataPoint(0.5f+dist/heatMapRadius,0.5f+dist/heatMapRadius,calcBarSettings(scanInfo.first.getDbm()).first);
             }else{
-                dp = new ScanDataPoint(0.5f+dist/heatMapRadius,0.5f-dist/heatMapRadius,calcBarSettings(scanInfo.first.dbm).first);
+                dp = new ScanDataPoint(0.5f+dist/heatMapRadius,0.5f-dist/heatMapRadius,calcBarSettings(scanInfo.first.getDbm()).first);
             }
         }else{
             if(scanInfo.second.getLatitude() < location.getLatitude()){
-                dp = new ScanDataPoint(0.5f-dist/heatMapRadius,0.5f+dist/heatMapRadius,calcBarSettings(scanInfo.first.dbm).first);
+                dp = new ScanDataPoint(0.5f-dist/heatMapRadius,0.5f+dist/heatMapRadius,calcBarSettings(scanInfo.first.getDbm()).first);
             }else{
-                dp = new ScanDataPoint(0.5f-dist/heatMapRadius,0.5f-dist/heatMapRadius,calcBarSettings(scanInfo.first.dbm).first);
+                dp = new ScanDataPoint(0.5f-dist/heatMapRadius,0.5f-dist/heatMapRadius,calcBarSettings(scanInfo.first.getDbm()).first);
             }
         }
         //HeatMap.DataPoint dataPoint = new HeatMap.DataPoint(0.5f, 0.5f, calcBarSettings(scanInfo.first.dbm).first);
