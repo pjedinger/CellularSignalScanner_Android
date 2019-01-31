@@ -12,9 +12,9 @@ public class HeatMapDrawService extends Service{
     Runnable runnable;
     MainActivity context;
     HeatMap heatMap;
-    private final int REFRESH_RATE_MS = 3000;
+    private final int REFRESH_RATE_MS = 2000;
 
-    public HeatMapDrawService(MainActivity context) {
+    public HeatMapDrawService(final MainActivity context) {
         this.context = context;
         this.heatMap = context.findViewById(R.id.signal_heatmap);
 
@@ -22,6 +22,9 @@ public class HeatMapDrawService extends Service{
         runnable = new Runnable() {
             @Override
             public void run() {
+                for(ScanDataPoint element : context.dataPoints) {
+                    heatMap.addData(new HeatMap.DataPoint(element.x, element.y, element.val));
+                }
                 heatMap.forceRefresh();
                 handler.postDelayed(runnable, REFRESH_RATE_MS);
             }
