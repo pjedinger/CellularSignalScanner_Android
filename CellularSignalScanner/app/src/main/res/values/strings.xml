@@ -16,4 +16,10 @@
     <string name="min_label">min</string>
     <string name="max_label">max</string>
     <string name="avg_label">Ø</string>
+    <string name="edit_scan_name_title">Edit</string>
+    <string name="edit_scan_name_text">Enter the new name of the scan</string>
+    <string name="delete_scan_title">Delete</string>
+    <string name="delete_scan_text">Do you want to delete this scan?</string>
+    <string name="delete_yes">yes</string>
+    <string name="delete_cancel">cancel</string>
 </resources>

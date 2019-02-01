@@ -17,6 +17,7 @@ import android.util.Pair;
 
 import fh_ooe.at.cellularsignalscanner.data.ScanInfo;
 import fh_ooe.at.cellularsignalscanner.activities.ScanActivity;
+import fh_ooe.at.cellularsignalscanner.tasks.ScanInfoTask;
 
 public class ScanInfoService extends Service implements LocationListener {
     Handler handler;

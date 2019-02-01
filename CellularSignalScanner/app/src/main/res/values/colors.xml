@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#005edd</color>
     <color name="colorPrimaryDark">#2E60CC</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#70BAFF</color>
     <color name="progress_start">#FF0000</color>
     <color name="progress_end">#00FF00</color>
     <color name="progress_center">#FFFF00</color>

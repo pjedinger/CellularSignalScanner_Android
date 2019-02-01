@@ -69,10 +69,10 @@ public class HistoryListAdapter extends ArrayAdapter<HistoryEntry> implements Vi
             }
 
             lastPosition = position;
-            viewHolder.nameTextView.setText(historyEntry.getName());
+            viewHolder.nameTextView.setText(historyEntry.name);
             viewHolder.nameTextView.setTag(position);
-            viewHolder.scanDurationTextView.setText(historyEntry.getScanDuration() + " seconds");
-            viewHolder.datelocationTextView.setText(historyEntry.getDate() + ", "+ historyEntry.getLocation());
+            viewHolder.scanDurationTextView.setText(historyEntry.scanDuration + " seconds");
+            viewHolder.datelocationTextView.setText(historyEntry.date + ", "+ historyEntry.location);
             return convertView;
         }
 }

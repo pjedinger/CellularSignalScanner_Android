@@ -6,6 +6,12 @@
         android:id="@+id/scan_result_edit"
         android:title="edit"
         android:icon="@drawable/edit_white"
-        app:showAsAction="withText|always"/>
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/scan_result_delete"
+        android:title="delete"
+        android:icon="@drawable/trash_can_white_noborder"
+        app:showAsAction="always"/>
 
 </menu>

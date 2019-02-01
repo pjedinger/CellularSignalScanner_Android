@@ -11,10 +11,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import fh_ooe.at.cellularsignalscanner.R;
 import fh_ooe.at.cellularsignalscanner.adapter.HistoryListAdapter;
+import fh_ooe.at.cellularsignalscanner.data.AppDatabase;
 import fh_ooe.at.cellularsignalscanner.data.HistoryEntry;
+import fh_ooe.at.cellularsignalscanner.data.ScanSingelton;
+import fh_ooe.at.cellularsignalscanner.tasks.GetAllHistoryEntriesTask;
 
 
 public class HistoryActivity extends AppCompatActivity {
@@ -28,16 +32,13 @@ public class HistoryActivity extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(getString(R.string.history));
+    }
 
-        ListView historyListView = findViewById(R.id.history_listview);
-        ArrayList<HistoryEntry> historyEntries = new ArrayList<>();
-        for (int i = 0; i<20; i++){
-            historyEntries.add(new HistoryEntry("Scan"+i+1, i+1+".12.2018", "Linz", "25"+i));
-        }
-
-        HistoryListAdapter historyListAdapter = new HistoryListAdapter(historyEntries, this);
-        historyListView.setAdapter(historyListAdapter);
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GetAllHistoryEntriesTask getAllHistoryEntriesTask = new GetAllHistoryEntriesTask(this);
+        getAllHistoryEntriesTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null);
     }
 
     @Override
@@ -47,8 +48,10 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     public void historyEntrySelected(HistoryEntry historyEntry) {
-        Toast.makeText(this, "Entry with Name: "+historyEntry.getName()+" clicked", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Entry with Name: "+historyEntry.name+" clicked", Toast.LENGTH_SHORT).show();
         Intent i = new Intent(this, ScanResultActivity.class);
+        i.putExtra("id", historyEntry.uid);
+        i.putExtra("name", historyEntry.name);
         startActivity(i);
     }
 }

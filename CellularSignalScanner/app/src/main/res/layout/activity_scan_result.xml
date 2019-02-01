@@ -29,7 +29,7 @@
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView
-            android:id="@+id/scanresult_signalstrength_minimum_label_textview"
+            android:id="@+id/scan_signalstrength_minimum_label_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/min_label"
@@ -42,20 +42,21 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/scanresult_signalstrength_average_label_textview"
+            android:id="@+id/scan_signalstrength_average_label_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/avg_label"
             android:textColor="@color/white"
             android:textSize="16dp"
-            tools:layout_editor_absoluteX="10dp"
-            tools:layout_editor_absoluteY="21dp" />
+            app:layout_constraintBottom_toTopOf="@+id/scan_signalstrength_minimum_label_textview"
+            app:layout_constraintEnd_toEndOf="@+id/scan_signalstrength_maximum_label_textview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scan_signalstrength_textview" />
 
         <TextView
             android:id="@+id/scan_signalstrength_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
             android:text="@string/signal_strength"
             android:textColor="@color/white"
             android:textSize="16dp"
@@ -69,7 +70,9 @@
             android:id="@+id/scan_signalstrength_average_textview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="-90 dBm"
+            android:layout_marginEnd="5dp"
+            android:text="0 dBm"
+            android:textAlignment="textEnd"
             android:textColor="@color/white"
             android:textSize="16dp"
             app:layout_constraintBottom_toTopOf="@+id/scan_signalstrength_minimum_textview"
@@ -83,7 +86,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
-            android:text="70 dBm"
+            android:text="0 dBm"
+            android:textAlignment="textEnd"
             android:textColor="@color/white"
             android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -95,7 +99,9 @@
             android:id="@+id/scan_signalstrength_minimum_textview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="-110 dBm"
+            android:layout_marginEnd="5dp"
+            android:text="0 dBm"
+            android:textAlignment="textEnd"
             android:textColor="@color/white"
             android:textSize="16dp"
             app:layout_constraintBottom_toTopOf="@+id/scan_signalstrength_maximum_textview"
@@ -186,7 +192,7 @@
             app:layout_constraintTop_toBottomOf="@+id/scan_quality_textview" />
 
         <ImageView
-            android:id="@+id/scanresult_duration_clock_imageview"
+            android:id="@+id/scan_duration_clock_imageview"
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_marginEnd="5dp"

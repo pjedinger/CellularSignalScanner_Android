@@ -1,47 +1,55 @@
 package fh_ooe.at.cellularsignalscanner.data;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+import android.widget.ArrayAdapter;
+
+import java.util.ArrayList;
+
+@Entity
 public class HistoryEntry {
-    private String name;
-    private String date;
-    private String location;
-    private String scanDuration;
+    @PrimaryKey (autoGenerate=true)
+    public int uid;
+    @ColumnInfo()
+    public String name;
+    @ColumnInfo
+    public String date;
+    @ColumnInfo
+    public String location;
+    @ColumnInfo
+    public int scanDuration;
+    @ColumnInfo
+    public String connection;
+    @ColumnInfo
+    public String provider;
+    @ColumnInfo
+    public ArrayList<ScanInfo> scanInfos;
+    @ColumnInfo
+    public int min;
+    @ColumnInfo
+    public String quality;
+    @ColumnInfo
+    public int max;
+    @ColumnInfo
+    public int avg;
 
-    public HistoryEntry(String name, String datum, String location, String scanDuration) {
+    @Ignore
+    public HistoryEntry(String name, String date, String location, int scanDuration, String connection, String provider, ArrayList<ScanInfo> scanInfos, int min, String quality, int max, int avg) {
         this.name = name;
-        this.date = datum;
-        this.location = location;
-        this.scanDuration = scanDuration;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
         this.date = date;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
         this.location = location;
-    }
-
-    public String getScanDuration() {
-        return scanDuration;
-    }
-
-    public void setScanDuration(String scanDuration) {
         this.scanDuration = scanDuration;
+        this.connection = connection;
+        this.provider = provider;
+        this.scanInfos = scanInfos;
+        this.min = min;
+        this.quality = quality;
+        this.max = max;
+        this.avg = avg;
+    }
+
+    public HistoryEntry() {
     }
 }

@@ -1,4 +1,4 @@
-package fh_ooe.at.cellularsignalscanner.service;
+package fh_ooe.at.cellularsignalscanner.tasks;
 
 import android.annotation.SuppressLint;
 import android.location.Location;
