@@ -2,6 +2,7 @@ package fh_ooe.at.cellularsignalscanner.activities;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
@@ -17,12 +18,15 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import ca.hss.heatmaplib.HeatMap;
+import ca.hss.heatmaplib.HeatMapMarkerCallback;
 import fh_ooe.at.cellularsignalscanner.R;
 import fh_ooe.at.cellularsignalscanner.service.HeatMapDrawService;
 import fh_ooe.at.cellularsignalscanner.data.ScanDataPoint;
@@ -33,7 +37,14 @@ public class ScanActivity extends AppCompatActivity {
 
     public HeatMap heatMap;
     public List<ScanDataPoint> dataPoints;
+    public List<ScanDataPoint> duplicateDataPoints;
+    public ScanDataPoint lastAddedDataPoint;
+    public int min, max = -200; //dBm metadata
+    public long startTime;
+    public int heatMapRadius = 10;
 
+    HeatMapDrawService heatMapDrawService;
+    ScanInfoService scanInfoService;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -41,17 +52,22 @@ public class ScanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan);
 
+        duplicateDataPoints = new ArrayList<>();
         dataPoints = new ArrayList<>();
         String[] perms = {"android.permission.FINE_LOCATION"};
         int permsRequestCode = 200;
         requestPermissions(perms, permsRequestCode);
 
+        TextView durationTextView = findViewById(R.id.scan_duration_textview);
+        durationTextView.setText(0+" sec");
+        startTime = System.currentTimeMillis();
 
         heatMap = findViewById(R.id.scan_heatmap);
         heatMap.setMinimum(0.0);
         heatMap.setMaximum(100.0);
-        heatMap.setOpacity(0);
-        heatMap.setRadius(700);
+        heatMap.setRadius(500);
+        //draw a dark violet circle at the location of each data point
+        //heatMap.setMarkerCallback(new HeatMapMarkerCallback.CircleHeatMapMarker(0xff9400D3));
 
         Map<Float, Integer> colors = new ArrayMap<>();
         //build a color gradient in HSV from red at the center to green at the outside
@@ -90,8 +106,8 @@ public class ScanActivity extends AppCompatActivity {
             return;
         }
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        ScanInfoService scanInfoService = new ScanInfoService(telephonyManager, this);
-        HeatMapDrawService heatMapDrawService = new HeatMapDrawService(this);
+        scanInfoService = new ScanInfoService(telephonyManager, this);
+        heatMapDrawService = new HeatMapDrawService(this);
     }
 
     @Override
@@ -140,5 +156,11 @@ public class ScanActivity extends AppCompatActivity {
 
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        scanInfoService.stopService(new Intent(this, ScanInfoService.class));
+        heatMapDrawService.stopService(new Intent(this, HeatMapDrawService.class));
     }
 }

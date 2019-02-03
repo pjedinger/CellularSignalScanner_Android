@@ -2,12 +2,16 @@ package fh_ooe.at.cellularsignalscanner.data;
 
 public class ScanDataPoint {
     float x, y;
-    int val;
+    int val, dbm;
+    double latitude, longitude;
 
-    public ScanDataPoint(float x, float y, int val){
+    public ScanDataPoint(float x, float y, int val, int dbm, double latitude, double longitude){
         this.x = x;
         this.y = y;
         this.val = val;
+        this.dbm = dbm;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     @Override
@@ -31,5 +35,17 @@ public class ScanDataPoint {
 
     public int getVal() {
         return val;
+    }
+
+    public int getDbm() {
+        return dbm;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
     }
 }
