@@ -26,12 +26,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"
-        android:layout_marginStart="5dp"
-        android:text="duration: 15 seconds"
+        android:layout_marginStart="8dp"
+        android:text="15 seconds"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/history_cell_duration_imageview"
         app:layout_constraintTop_toBottomOf="@+id/history_cell_name_textview" />
 
     <TextView
@@ -49,4 +49,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/history_cell_duration_textview"
         tools:text="1.2.2019, Linz" />
+
+    <ImageView
+        android:id="@+id/history_cell_duration_imageview"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/history_cell_duration_textview"
+        app:srcCompat="@drawable/clock_white" />
 </android.support.constraint.ConstraintLayout>

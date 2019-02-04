@@ -5,7 +5,7 @@
     <item
         android:id="@+id/stop_scan"
         android:title="stop"
-        android:icon="@drawable/stop_white"
+        android:icon="@drawable/stop_white_2"
         app:showAsAction="withText|always"/>
 
 </menu>

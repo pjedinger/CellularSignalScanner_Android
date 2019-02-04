@@ -25,7 +25,7 @@ public class HistoryEntry {
     @ColumnInfo
     public String provider;
     @ColumnInfo
-    public ArrayList<ScanInfo> scanInfos;
+    public ArrayList<ScanDataPoint> scanDataPoints;
     @ColumnInfo
     public int min;
     @ColumnInfo
@@ -36,14 +36,14 @@ public class HistoryEntry {
     public int avg;
 
     @Ignore
-    public HistoryEntry(String name, String date, String location, int scanDuration, String connection, String provider, ArrayList<ScanInfo> scanInfos, int min, String quality, int max, int avg) {
+    public HistoryEntry(String name, String date, String location, int scanDuration, String connection, String provider, ArrayList<ScanDataPoint> scanDataPoints, int min, String quality, int max, int avg) {
         this.name = name;
         this.date = date;
         this.location = location;
         this.scanDuration = scanDuration;
         this.connection = connection;
         this.provider = provider;
-        this.scanInfos = scanInfos;
+        this.scanDataPoints = scanDataPoints;
         this.min = min;
         this.quality = quality;
         this.max = max;
