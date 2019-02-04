@@ -173,7 +173,8 @@ public class ScanActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        scanInfoService.stopService(new Intent(this, ScanInfoService.class));
+       // scanInfoService.stopService(new Intent(this, ScanInfoService.class));
+        scanInfoService.stopScanInfoService();
 
         if(historyEntry != null) {
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
@@ -182,7 +183,8 @@ public class ScanActivity extends AppCompatActivity {
             AddHistoryEntryTask historyEntryTask = new AddHistoryEntryTask();
             historyEntryTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, historyEntry);
         }
-
-        heatMapDrawService.stopService(new Intent(this, HeatMapDrawService.class));
+        heatMapDrawService.stopHeatMapDrawService();
+        this.finish();
+        //heatMapDrawService.stopService(new Intent(this, HeatMapDrawService.class));
     }
 }

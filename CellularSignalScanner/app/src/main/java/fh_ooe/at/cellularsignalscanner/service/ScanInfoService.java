@@ -162,4 +162,8 @@ public class ScanInfoService extends Service implements LocationListener {
     public void onDestroy() {
 
     }
+
+    public void stopScanInfoService(){
+        handler.removeCallbacks(runnable);
+    }
 }

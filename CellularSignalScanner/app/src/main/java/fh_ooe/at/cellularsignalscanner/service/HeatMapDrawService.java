@@ -62,4 +62,8 @@ public class HeatMapDrawService extends Service{
     public IBinder onBind(Intent intent) {
         return null;
     }
+
+    public void stopHeatMapDrawService(){
+        handler.removeCallbacks(runnable);
+    }
 }
