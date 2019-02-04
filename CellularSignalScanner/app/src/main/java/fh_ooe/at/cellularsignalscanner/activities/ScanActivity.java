@@ -167,6 +167,8 @@ public class ScanActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.menu.scan_menu){
             //stop and go to result
+            scanInfoService.stopScanInfoService();
+            heatMapDrawService.stopHeatMapDrawService();
         }
         return super.onOptionsItemSelected(item);
     }
