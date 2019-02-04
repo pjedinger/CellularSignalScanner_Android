@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/background">
+    android:background="@drawable/blue_background_corners">
 
     <TextView
         android:id="@+id/history_cell_name_textview"
@@ -13,13 +13,13 @@
         android:layout_marginEnd="5dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
-        android:text="Scan 1"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Scan 1" />
 
     <TextView
         android:id="@+id/history_cell_duration_textview"
@@ -27,12 +27,12 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"
         android:layout_marginStart="8dp"
-        android:text="15 seconds"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/history_cell_duration_imageview"
-        app:layout_constraintTop_toBottomOf="@+id/history_cell_name_textview" />
+        app:layout_constraintTop_toBottomOf="@+id/history_cell_name_textview"
+        tools:text="15 sec" />
 
     <TextView
         android:id="@+id/history_cell_datelocation_textview"
@@ -41,7 +41,6 @@
         android:layout_marginBottom="5dp"
         android:layout_marginEnd="5dp"
         android:layout_marginStart="5dp"
-        android:text="TextView"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"

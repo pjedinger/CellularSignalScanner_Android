@@ -13,11 +13,13 @@ import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 
 import fh_ooe.at.cellularsignalscanner.R;
+import fh_ooe.at.cellularsignalscanner.interfaces.AddHistoryEntryCallback;
+import fh_ooe.at.cellularsignalscanner.libary.HeatMapMarkerCallback;
 import fh_ooe.at.cellularsignalscanner.tasks.DeleteHistoryEntryTask;
 import fh_ooe.at.cellularsignalscanner.tasks.GetHistoryEntryTask;
 import fh_ooe.at.cellularsignalscanner.tasks.UpdateHistoryEntryNameTask;
 
-public class ScanResultActivity extends AppCompatActivity {
+public class ScanResultActivity extends AppCompatActivity{
 
     int id;
 

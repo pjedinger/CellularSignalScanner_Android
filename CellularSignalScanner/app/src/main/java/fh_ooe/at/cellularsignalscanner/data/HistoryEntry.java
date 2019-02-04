@@ -34,9 +34,11 @@ public class HistoryEntry {
     public int max;
     @ColumnInfo
     public int avg;
+    @ColumnInfo
+    public int scale;
 
     @Ignore
-    public HistoryEntry(String name, String date, String location, int scanDuration, String connection, String provider, ArrayList<ScanDataPoint> scanDataPoints, int min, String quality, int max, int avg) {
+    public HistoryEntry(String name, String date, String location, int scanDuration, String connection, String provider, ArrayList<ScanDataPoint> scanDataPoints, int min, String quality, int max, int avg, int scale) {
         this.name = name;
         this.date = date;
         this.location = location;
@@ -48,6 +50,7 @@ public class HistoryEntry {
         this.quality = quality;
         this.max = max;
         this.avg = avg;
+        this.scale = scale;
     }
 
     public HistoryEntry() {

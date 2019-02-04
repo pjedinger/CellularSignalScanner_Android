@@ -27,17 +27,19 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import fh_ooe.at.cellularsignalscanner.R;
 import fh_ooe.at.cellularsignalscanner.data.HistoryEntry;
 import fh_ooe.at.cellularsignalscanner.data.ScanDataPoint;
+import fh_ooe.at.cellularsignalscanner.interfaces.AddHistoryEntryCallback;
 import fh_ooe.at.cellularsignalscanner.libary.HeatMap;
 import fh_ooe.at.cellularsignalscanner.libary.HeatMapMarkerCallback;
 import fh_ooe.at.cellularsignalscanner.service.HeatMapDrawService;
 import fh_ooe.at.cellularsignalscanner.service.ScanInfoService;
 import fh_ooe.at.cellularsignalscanner.tasks.AddHistoryEntryTask;
 
-public class ScanActivity extends AppCompatActivity {
+public class ScanActivity extends AppCompatActivity implements AddHistoryEntryCallback{
 
 
     public HeatMap heatMap;
@@ -165,9 +167,18 @@ public class ScanActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.menu.scan_menu){
+        if(item.getItemId() == R.id.stop_scan){
             //stop and go to result
             scanInfoService.stopScanInfoService();
+
+            if(historyEntry != null) {
+                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+                sp.edit().putInt("scanCount", sp.getInt("scanCount", 1) + 1).commit();
+
+                AddHistoryEntryTask historyEntryTask = new AddHistoryEntryTask();
+                historyEntryTask.callback = this;
+                historyEntryTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, historyEntry);
+            }
             heatMapDrawService.stopHeatMapDrawService();
         }
         return super.onOptionsItemSelected(item);
@@ -188,5 +199,14 @@ public class ScanActivity extends AppCompatActivity {
         heatMapDrawService.stopHeatMapDrawService();
         this.finish();
         //heatMapDrawService.stopService(new Intent(this, HeatMapDrawService.class));
+    }
+
+    @Override
+    public void onUidGenerated(int uid) {
+        Intent i = new Intent(this, ScanResultActivity.class);
+        i.putExtra("id", uid);
+        i.putExtra("name", historyEntry.name);
+        this.finish();
+        startActivity(i);
     }
 }
