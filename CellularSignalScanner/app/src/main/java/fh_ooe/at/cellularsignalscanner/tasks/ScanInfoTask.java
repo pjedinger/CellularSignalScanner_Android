@@ -250,7 +250,7 @@ public class ScanInfoTask extends AsyncTask<TelephonyManager, Integer, ScanServi
         historyEntry.scanDuration=(int)duration;
         historyEntry.date=currentDateandTime;
         historyEntry.location=locationTextView.getText().toString();
-        historyEntry.scanInfos = scanServiceMetadata.getScanInfo();
+        historyEntry.scanDataPoints = new ArrayList<>(context.dataPoints);
         delegate.processFinish(scanServiceMetadata);
     }
 
