@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import fh_ooe.at.cellularsignalscanner.R;
 import fh_ooe.at.cellularsignalscanner.activities.HistoryActivity;
@@ -68,7 +69,15 @@ public class HistoryListAdapter extends ArrayAdapter<HistoryEntry> implements Vi
             lastPosition = position;
             viewHolder.nameTextView.setText(historyEntry.name);
             viewHolder.nameTextView.setTag(position);
-            viewHolder.scanDurationTextView.setText(historyEntry.scanDuration + " seconds");
+
+            if(historyEntry.scanDuration < 60000){
+                viewHolder.scanDurationTextView.setText(TimeUnit.MILLISECONDS.toSeconds(historyEntry.scanDuration)+" sec");
+            }else if(historyEntry.scanDuration < 3600000){
+                viewHolder.scanDurationTextView.setText(TimeUnit.MILLISECONDS.toMinutes(historyEntry.scanDuration)+":"+TimeUnit.MILLISECONDS.toSeconds(historyEntry.scanDuration)%60+ " min");
+            }else{
+                viewHolder.scanDurationTextView.setText(TimeUnit.MILLISECONDS.toHours(historyEntry.scanDuration)+":"+TimeUnit.MILLISECONDS.toMinutes(historyEntry.scanDuration)%60+":"+ TimeUnit.MILLISECONDS.toSeconds(historyEntry.scanDuration)%3600+" hrs");
+            }
+
             viewHolder.datelocationTextView.setText(historyEntry.date + ", "+ historyEntry.location);
             return convertView;
         }

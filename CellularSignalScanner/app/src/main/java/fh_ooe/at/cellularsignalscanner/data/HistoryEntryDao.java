@@ -22,7 +22,7 @@ public interface HistoryEntryDao {
         void deleteHistoryEntryById(int historyEntryId);
 
         @Insert
-        void insertAll(HistoryEntry... users);
+        long[] insertAll(HistoryEntry... users);
 
         @Delete
         void delete(HistoryEntry user);
