@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.concurrent.TimeUnit;
 
 import fh_ooe.at.cellularsignalscanner.data.ScanDataPoint;
+import fh_ooe.at.cellularsignalscanner.data.SignalQuality;
 import fh_ooe.at.cellularsignalscanner.libary.HeatMap;
 import fh_ooe.at.cellularsignalscanner.activities.ScanResultActivity;
 import fh_ooe.at.cellularsignalscanner.data.AppDatabase;
@@ -45,7 +46,7 @@ public class GetHistoryEntryTask extends AsyncTask<Integer, Void, HistoryEntry> 
         minimumTextView.setText(historyEntry.min+" dBm");
         maximumTextView.setText(historyEntry.max+" dBm");
         averageTextView.setText(historyEntry.avg+" dBm");
-        qualityTextView.setText("Quality: "+historyEntry.quality);
+        qualityTextView.setText("Quality: "+ SignalQuality.getSignalQuality(historyEntry.avg).name());
         connectionTextView.setText(historyEntry.connection + ", "+historyEntry.provider);
         scaleTextView.setText(historyEntry.scale+ "m");
 
