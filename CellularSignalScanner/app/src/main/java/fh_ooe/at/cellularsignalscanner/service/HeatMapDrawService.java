@@ -30,7 +30,6 @@ public class HeatMapDrawService extends Service{
             @Override
             public void run() {
                 heatMap.clearData();
-               // long before = System.nanoTime();
                 Collections.sort(context.dataPoints, new Comparator<ScanDataPoint>() {
                     @Override
                     public int compare(ScanDataPoint o1, ScanDataPoint o2) {
@@ -45,12 +44,7 @@ public class HeatMapDrawService extends Service{
                 for(ScanDataPoint element : context.dataPoints) {
                     heatMap.addData(new HeatMap.DataPoint(element.getX(), element.getY(), element.getVal()));
                 }
-                //long after = System.nanoTime();
-                //Log.d("HeatMapRuntime","Runtime Adding Data to HeatMap: " + (after-before));
-               // before = System.nanoTime();
                 heatMap.forceRefresh();
-                //after = System.nanoTime();
-                //Log.d("HeatMapRuntime","Runtime Force Refresh: " + (after-before));
                 handler.postDelayed(runnable, REFRESH_RATE_MS);
             }
         };
