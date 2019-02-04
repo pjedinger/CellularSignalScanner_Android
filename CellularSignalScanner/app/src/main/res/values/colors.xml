@@ -21,7 +21,7 @@
     <color name="gradient9">#FF9E00</color>
     <color name="gradient10">#FFAF00</color>
     <color name="gradient11">#FFC100</color>
-    <color name="gradient12"> #FFD300</color>
+    <color name="gradient12">#FFD300</color>
     <color name="gradient13">#FFE400</color>
     <color name="gradient14">#FFF600</color>
     <color name="gradient15">#F7FF00</color>
@@ -39,17 +39,4 @@
     <color name="gradient27">#24FF00</color>
     <color name="gradient28">#12FF00</color>
     <color name="gradient29">#00FF00</color>
-
-
-
-
-
-
-
-
-
-
-
-
-
 </resources>

@@ -2,22 +2,13 @@ package fh_ooe.at.cellularsignalscanner.activities;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import fh_ooe.at.cellularsignalscanner.R;
-import fh_ooe.at.cellularsignalscanner.adapter.HistoryListAdapter;
-import fh_ooe.at.cellularsignalscanner.data.AppDatabase;
 import fh_ooe.at.cellularsignalscanner.data.HistoryEntry;
-import fh_ooe.at.cellularsignalscanner.data.ScanSingelton;
 import fh_ooe.at.cellularsignalscanner.tasks.GetAllHistoryEntriesTask;
 
 

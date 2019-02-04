@@ -14,16 +14,19 @@ import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.util.Pair;
 
+import java.util.ArrayList;
+
+import fh_ooe.at.cellularsignalscanner.activities.ScanActivity;
+import fh_ooe.at.cellularsignalscanner.data.ConnectionType;
 import fh_ooe.at.cellularsignalscanner.data.HistoryEntry;
 import fh_ooe.at.cellularsignalscanner.data.ScanInfo;
-import fh_ooe.at.cellularsignalscanner.activities.ScanActivity;
 import fh_ooe.at.cellularsignalscanner.data.ScanServiceMetadata;
-import fh_ooe.at.cellularsignalscanner.interfaces.AsyncResponse;
+import fh_ooe.at.cellularsignalscanner.interfaces.RunnableHistory;
+import fh_ooe.at.cellularsignalscanner.tasks.AddHistoryEntryTask;
 import fh_ooe.at.cellularsignalscanner.tasks.ScanInfoTask;
 
-public class ScanInfoService extends Service implements LocationListener, AsyncResponse {
+public class ScanInfoService extends Service implements LocationListener {
     Handler handler;
     Runnable runnable;
     TelephonyManager telephonyManager;
@@ -32,7 +35,7 @@ public class ScanInfoService extends Service implements LocationListener, AsyncR
     HistoryEntry historyEntry;
 
     Location referenceLocation = null;
-    private final int REFRESH_RATE_MS = 300;
+    private final int REFRESH_RATE_MS = 250;
 
     Boolean isGPSEnabled = false, isNetworkEnabled = false;
 
@@ -51,6 +54,7 @@ public class ScanInfoService extends Service implements LocationListener, AsyncR
         //Create Location Manager and check which Providers are enabled.
         final LocationManager locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
 
+        Log.d("Data","Creating a new ScanInfoService");
         try {
             //Getting the location of the scan.
             // Getting GPS status
@@ -93,7 +97,13 @@ public class ScanInfoService extends Service implements LocationListener, AsyncR
         }
 
         handler = new Handler();
-        runnable = new Runnable() {
+        runnable = new RunnableHistory() {
+            RunnableHistory runnableHistory;
+            @Override
+            public void processFinish(ScanServiceMetadata scanServiceMetadata) {
+                context.historyEntry = scanServiceMetadata.getHistoryEntry();
+            }
+
             @Override
             public void run() {
                 // if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) { }
@@ -103,14 +113,16 @@ public class ScanInfoService extends Service implements LocationListener, AsyncR
                     //Pair<ScanInfo, Location> locPair = scanInfoTask.execute(telephonyManager).get();
                     ScanServiceMetadata scanServiceMetadata = scanInfoTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, telephonyManager).get();
 
+
                     //here the delegate for history creation.
-                    //scanInfoTask.delegate = this;
+                    scanInfoTask.delegate = this;
 
                     if(referenceLocation == null) {
                         referenceLocation = scanServiceMetadata.getLocation();
                     }
+
                    // historyEntry = scanServiceMetadata.getHistoryEntry();
-                    handler.postDelayed(runnable, REFRESH_RATE_MS);
+                    handler.postDelayed(this, REFRESH_RATE_MS);
                     Thread.currentThread().setName("HelloGoodSir");
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -118,6 +130,7 @@ public class ScanInfoService extends Service implements LocationListener, AsyncR
             }
         };
         handler.postDelayed(runnable, REFRESH_RATE_MS);
+        context.scanStart = true;
     }
 
     @Override
@@ -148,10 +161,5 @@ public class ScanInfoService extends Service implements LocationListener, AsyncR
     @Override
     public void onDestroy() {
 
-    }
-
-    @Override
-    public void processFinish(ScanServiceMetadata scanServiceMetadata) {
-        //return of PostExecute in asynctask
     }
 }

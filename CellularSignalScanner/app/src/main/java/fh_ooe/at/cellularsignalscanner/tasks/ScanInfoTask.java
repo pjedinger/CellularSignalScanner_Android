@@ -1,12 +1,12 @@
 package fh_ooe.at.cellularsignalscanner.tasks;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.AsyncTask;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
+import android.preference.PreferenceManager;
 import android.telephony.CellInfo;
 import android.telephony.CellInfoCdma;
 import android.telephony.CellInfoGsm;
@@ -22,29 +22,27 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import ca.hss.heatmaplib.HeatMap;
-import fh_ooe.at.cellularsignalscanner.data.ConnectionType;
 import fh_ooe.at.cellularsignalscanner.R;
+import fh_ooe.at.cellularsignalscanner.activities.ScanActivity;
+import fh_ooe.at.cellularsignalscanner.data.ConnectionType;
+import fh_ooe.at.cellularsignalscanner.data.HistoryEntry;
 import fh_ooe.at.cellularsignalscanner.data.ScanDataPoint;
 import fh_ooe.at.cellularsignalscanner.data.ScanInfo;
 import fh_ooe.at.cellularsignalscanner.data.ScanServiceMetadata;
 import fh_ooe.at.cellularsignalscanner.data.SignalQuality;
-import fh_ooe.at.cellularsignalscanner.activities.ScanActivity;
-import fh_ooe.at.cellularsignalscanner.interfaces.AsyncResponse;
+import fh_ooe.at.cellularsignalscanner.interfaces.RunnableHistory;
 
 public class ScanInfoTask extends AsyncTask<TelephonyManager, Integer, ScanServiceMetadata>{
 
-    public AsyncResponse delegate = null;
+    public RunnableHistory delegate = null;
     private Location location;
 
     private ScanActivity context;
@@ -206,7 +204,7 @@ public class ScanInfoTask extends AsyncTask<TelephonyManager, Integer, ScanServi
                 double partDistanceLat = distanceLat / dataPointCount;
                 int i = 1;
                 for (ScanDataPoint dataPoint: context.duplicateDataPoints) {
-                    if(i % 3 == 0) {
+                    if(i % 5 == 0) {
                         ScanDataPoint interpolatedPoint = new ScanDataPoint(context.lastAddedDataPoint.getX() - partDistanceX * i, context.lastAddedDataPoint.getY() - partDistanceY * i, calcBarSettings(dataPoint.getDbm()).first, dataPoint.getDbm(), context.lastAddedDataPoint.getLatitude() - partDistanceLat * i, context.lastAddedDataPoint.getLongitude() - partDistanceLong * i);
                         context.dataPoints.add(interpolatedPoint);
                     }
@@ -236,9 +234,24 @@ public class ScanInfoTask extends AsyncTask<TelephonyManager, Integer, ScanServi
         }else{
             durationTextView.setText(TimeUnit.MILLISECONDS.toHours(duration)+":"+TimeUnit.MILLISECONDS.toMinutes(duration)%60+":"+ TimeUnit.MILLISECONDS.toSeconds(duration)%3600+" hrs");
         }
+        context.entryCount+=1;
+        Log.d("DataPoints", ""+context.dataPoints.size() + " Entry: " + context.entryCount);
 
-        Log.d("DataPoints", ""+context.dataPoints.size());
-        //delegate.processFinish(scanServiceMetadata);
+        //Creating History entry
+        HistoryEntry historyEntry = new HistoryEntry();
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        historyEntry.name="Unnamed Scan " + sp.getInt("scanCount", 1);;
+        historyEntry.avg=getAvgDBM();
+        historyEntry.max=getMaxDBM();
+        historyEntry.min=getMinDBM();
+        historyEntry.connection=scanServiceMetadata.getScanInfo().getConnectionType().name();
+        historyEntry.provider=scanServiceMetadata.getScanInfo().getProvider();
+        historyEntry.quality=sq.name();
+        historyEntry.scanDuration=(int)duration;
+        historyEntry.date=currentDateandTime;
+        historyEntry.location=locationTextView.getText().toString();
+        historyEntry.scanInfos = scanServiceMetadata.getScanInfo();
+        delegate.processFinish(scanServiceMetadata);
     }
 
 

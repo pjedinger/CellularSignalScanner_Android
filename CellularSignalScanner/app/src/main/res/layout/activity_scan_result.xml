@@ -111,7 +111,7 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <ca.hss.heatmaplib.HeatMap
+    <fh_ooe.at.cellularsignalscanner.libary.HeatMap
         android:id="@+id/scanresult_heatmap"
         android:layout_width="0dp"
         android:layout_height="0dp"
