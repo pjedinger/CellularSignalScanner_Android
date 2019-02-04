@@ -54,25 +54,6 @@ public class HomeActivity extends AppCompatActivity {
                 AppDatabase.class, "appdatabase").fallbackToDestructiveMigration().build();
         scanSingelton.setDatabase(database);
         //adding database
-        HistoryEntry historyEntry = new HistoryEntry();
-        historyEntry.name="Scan 1";
-        historyEntry.avg=-95;
-        historyEntry.max=-100;
-        historyEntry.min=-90;
-        historyEntry.connection="4G";
-        historyEntry.provider="A1";
-        historyEntry.quality ="AVERAGE";
-        historyEntry.scanDuration=25;
-        historyEntry.date="1.2.2018";
-        historyEntry.location="Hagenberg";
-        ArrayList<ScanInfo> scanInfos =  new ArrayList<>();
-        scanInfos.add(new ScanInfo(ConnectionType.LTE, 80, "4G", null));
-        historyEntry.scanInfos = scanInfos;
-
-        AddHistoryEntryTask historyEntryTask = new AddHistoryEntryTask();
-        historyEntryTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, historyEntry);
-
-
     }
 
     @Override

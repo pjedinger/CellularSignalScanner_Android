@@ -3,10 +3,13 @@ package fh_ooe.at.cellularsignalscanner.activities;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
@@ -26,11 +29,13 @@ import java.util.List;
 import java.util.Map;
 
 import fh_ooe.at.cellularsignalscanner.R;
+import fh_ooe.at.cellularsignalscanner.data.HistoryEntry;
 import fh_ooe.at.cellularsignalscanner.data.ScanDataPoint;
 import fh_ooe.at.cellularsignalscanner.libary.HeatMap;
 import fh_ooe.at.cellularsignalscanner.libary.HeatMapMarkerCallback;
 import fh_ooe.at.cellularsignalscanner.service.HeatMapDrawService;
 import fh_ooe.at.cellularsignalscanner.service.ScanInfoService;
+import fh_ooe.at.cellularsignalscanner.tasks.AddHistoryEntryTask;
 
 public class ScanActivity extends AppCompatActivity {
 
@@ -44,6 +49,7 @@ public class ScanActivity extends AppCompatActivity {
     public int heatMapRadius = 10;
     public int entryCount = 0;
     public boolean scanStart = false, heatMapStarted = false;
+    public HistoryEntry historyEntry;
 
     HeatMapDrawService heatMapDrawService;
     ScanInfoService scanInfoService;
@@ -160,8 +166,7 @@ public class ScanActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.menu.scan_menu){
-            //stopservice
-
+            //stop and go to result
         }
         return super.onOptionsItemSelected(item);
     }
@@ -169,6 +174,15 @@ public class ScanActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         scanInfoService.stopService(new Intent(this, ScanInfoService.class));
+
+        if(historyEntry != null) {
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+            sp.edit().putInt("scanCount", sp.getInt("scanCount", 1) + 1).commit();
+
+            AddHistoryEntryTask historyEntryTask = new AddHistoryEntryTask();
+            historyEntryTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, historyEntry);
+        }
+
         heatMapDrawService.stopService(new Intent(this, HeatMapDrawService.class));
     }
 }

@@ -1,10 +1,12 @@
 package fh_ooe.at.cellularsignalscanner.tasks;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.telephony.CellInfo;
 import android.telephony.CellInfoCdma;
 import android.telephony.CellInfoGsm;
@@ -31,15 +33,16 @@ import java.util.concurrent.TimeUnit;
 import fh_ooe.at.cellularsignalscanner.R;
 import fh_ooe.at.cellularsignalscanner.activities.ScanActivity;
 import fh_ooe.at.cellularsignalscanner.data.ConnectionType;
+import fh_ooe.at.cellularsignalscanner.data.HistoryEntry;
 import fh_ooe.at.cellularsignalscanner.data.ScanDataPoint;
 import fh_ooe.at.cellularsignalscanner.data.ScanInfo;
 import fh_ooe.at.cellularsignalscanner.data.ScanServiceMetadata;
 import fh_ooe.at.cellularsignalscanner.data.SignalQuality;
-import fh_ooe.at.cellularsignalscanner.interfaces.AsyncResponse;
+import fh_ooe.at.cellularsignalscanner.interfaces.RunnableHistory;
 
 public class ScanInfoTask extends AsyncTask<TelephonyManager, Integer, ScanServiceMetadata>{
 
-    public AsyncResponse delegate = null;
+    public RunnableHistory delegate = null;
     private Location location;
 
     private ScanActivity context;
@@ -233,7 +236,22 @@ public class ScanInfoTask extends AsyncTask<TelephonyManager, Integer, ScanServi
         }
         context.entryCount+=1;
         Log.d("DataPoints", ""+context.dataPoints.size() + " Entry: " + context.entryCount);
-        //delegate.processFinish(scanServiceMetadata);
+
+        //Creating History entry
+        HistoryEntry historyEntry = new HistoryEntry();
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        historyEntry.name="Unnamed Scan " + sp.getInt("scanCount", 1);;
+        historyEntry.avg=getAvgDBM();
+        historyEntry.max=getMaxDBM();
+        historyEntry.min=getMinDBM();
+        historyEntry.connection=scanServiceMetadata.getScanInfo().getConnectionType().name();
+        historyEntry.provider=scanServiceMetadata.getScanInfo().getProvider();
+        historyEntry.quality=sq.name();
+        historyEntry.scanDuration=(int)duration;
+        historyEntry.date=currentDateandTime;
+        historyEntry.location=locationTextView.getText().toString();
+        historyEntry.scanInfos = scanServiceMetadata.getScanInfo();
+        delegate.processFinish(scanServiceMetadata);
     }
 
 

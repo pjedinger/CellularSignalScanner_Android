@@ -15,13 +15,18 @@ import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 import fh_ooe.at.cellularsignalscanner.activities.ScanActivity;
+import fh_ooe.at.cellularsignalscanner.data.ConnectionType;
 import fh_ooe.at.cellularsignalscanner.data.HistoryEntry;
+import fh_ooe.at.cellularsignalscanner.data.ScanInfo;
 import fh_ooe.at.cellularsignalscanner.data.ScanServiceMetadata;
-import fh_ooe.at.cellularsignalscanner.interfaces.AsyncResponse;
+import fh_ooe.at.cellularsignalscanner.interfaces.RunnableHistory;
+import fh_ooe.at.cellularsignalscanner.tasks.AddHistoryEntryTask;
 import fh_ooe.at.cellularsignalscanner.tasks.ScanInfoTask;
 
-public class ScanInfoService extends Service implements LocationListener, AsyncResponse {
+public class ScanInfoService extends Service implements LocationListener {
     Handler handler;
     Runnable runnable;
     TelephonyManager telephonyManager;
@@ -33,8 +38,6 @@ public class ScanInfoService extends Service implements LocationListener, AsyncR
     private final int REFRESH_RATE_MS = 250;
 
     Boolean isGPSEnabled = false, isNetworkEnabled = false;
-
-    AsyncResponse asyncResponse;
 
     // The minimum distance to change Updates in meters
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1; // 1 meters
@@ -94,7 +97,13 @@ public class ScanInfoService extends Service implements LocationListener, AsyncR
         }
 
         handler = new Handler();
-        runnable = new Runnable() {
+        runnable = new RunnableHistory() {
+            RunnableHistory runnableHistory;
+            @Override
+            public void processFinish(ScanServiceMetadata scanServiceMetadata) {
+                context.historyEntry = scanServiceMetadata.getHistoryEntry();
+            }
+
             @Override
             public void run() {
                 // if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) { }
@@ -106,7 +115,7 @@ public class ScanInfoService extends Service implements LocationListener, AsyncR
 
 
                     //here the delegate for history creation.
-                    //scanInfoTask.delegate = this;
+                    scanInfoTask.delegate = this;
 
                     if(referenceLocation == null) {
                         referenceLocation = scanServiceMetadata.getLocation();
@@ -152,10 +161,5 @@ public class ScanInfoService extends Service implements LocationListener, AsyncR
     @Override
     public void onDestroy() {
 
-    }
-
-    @Override
-    public void processFinish(ScanServiceMetadata scanServiceMetadata) {
-        //return of PostExecute in asynctask
     }
 }
