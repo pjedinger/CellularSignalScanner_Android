@@ -237,6 +237,8 @@ public class ScanInfoTask extends AsyncTask<TelephonyManager, Integer, ScanServi
         context.entryCount+=1;
         Log.d("DataPoints", ""+context.dataPoints.size() + " Entry: " + context.entryCount);
 
+        TextView scaleTextView = context.findViewById(R.id.scan_scale_textview);
+        scaleTextView.setText(context.heatMapRadius+" m");
         //Creating History entry
         HistoryEntry historyEntry = new HistoryEntry();
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
@@ -251,6 +253,7 @@ public class ScanInfoTask extends AsyncTask<TelephonyManager, Integer, ScanServi
         historyEntry.date=currentDateandTime;
         historyEntry.location=locationTextView.getText().toString();
         historyEntry.scanDataPoints = new ArrayList<>(context.dataPoints);
+        historyEntry.scale = context.heatMapRadius;
         scanServiceMetadata.setHistoryEntry(historyEntry);
         delegate.processFinish(scanServiceMetadata);
     }

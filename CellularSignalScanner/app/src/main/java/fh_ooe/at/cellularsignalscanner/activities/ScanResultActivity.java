@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
@@ -38,6 +39,8 @@ public class ScanResultActivity extends AppCompatActivity{
 
         GetHistoryEntryTask getHistoryEntryTask = new GetHistoryEntryTask(this);
         getHistoryEntryTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, id);
+
+        TextView scaleTextView = findViewById(R.id.scan_scale_textview);
     }
 
     @Override
