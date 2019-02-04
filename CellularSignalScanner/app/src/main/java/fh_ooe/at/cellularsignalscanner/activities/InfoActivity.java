@@ -1,11 +1,10 @@
 package fh_ooe.at.cellularsignalscanner.activities;
 
-import android.support.v4.app.SupportActivity;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
+
 import fh_ooe.at.cellularsignalscanner.R;
 
 public class InfoActivity extends AppCompatActivity {

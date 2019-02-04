@@ -3,7 +3,7 @@ package fh_ooe.at.cellularsignalscanner.tasks;
 import android.os.AsyncTask;
 import android.widget.TextView;
 
-import ca.hss.heatmaplib.HeatMap;
+import fh_ooe.at.cellularsignalscanner.libary.HeatMap;
 import fh_ooe.at.cellularsignalscanner.activities.ScanResultActivity;
 import fh_ooe.at.cellularsignalscanner.data.AppDatabase;
 import fh_ooe.at.cellularsignalscanner.data.HistoryEntry;

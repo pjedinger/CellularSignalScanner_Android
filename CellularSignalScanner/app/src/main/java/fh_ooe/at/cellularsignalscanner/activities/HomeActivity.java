@@ -3,8 +3,9 @@ package fh_ooe.at.cellularsignalscanner.activities;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -34,6 +35,7 @@ public class HomeActivity extends AppCompatActivity {
         startScanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("Data", "In startScanButton onClick");
                 Intent i = new Intent(getApplicationContext(), ScanActivity.class);
                 startActivity(i);
             }

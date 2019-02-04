@@ -13,6 +13,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 import android.util.ArrayMap;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -20,16 +21,15 @@ import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import ca.hss.heatmaplib.HeatMap;
-import ca.hss.heatmaplib.HeatMapMarkerCallback;
 import fh_ooe.at.cellularsignalscanner.R;
-import fh_ooe.at.cellularsignalscanner.service.HeatMapDrawService;
 import fh_ooe.at.cellularsignalscanner.data.ScanDataPoint;
+import fh_ooe.at.cellularsignalscanner.libary.HeatMap;
+import fh_ooe.at.cellularsignalscanner.libary.HeatMapMarkerCallback;
+import fh_ooe.at.cellularsignalscanner.service.HeatMapDrawService;
 import fh_ooe.at.cellularsignalscanner.service.ScanInfoService;
 
 public class ScanActivity extends AppCompatActivity {
@@ -42,6 +42,8 @@ public class ScanActivity extends AppCompatActivity {
     public int min, max = -200; //dBm metadata
     public long startTime;
     public int heatMapRadius = 10;
+    public int entryCount = 0;
+    public boolean scanStart = false, heatMapStarted = false;
 
     HeatMapDrawService heatMapDrawService;
     ScanInfoService scanInfoService;
@@ -65,22 +67,23 @@ public class ScanActivity extends AppCompatActivity {
         heatMap = findViewById(R.id.scan_heatmap);
         heatMap.setMinimum(0.0);
         heatMap.setMaximum(100.0);
-        heatMap.setRadius(500);
+        heatMap.setRadius(1);
+        heatMap.setOpacity(0);
         //draw a dark violet circle at the location of each data point
-        //heatMap.setMarkerCallback(new HeatMapMarkerCallback.CircleHeatMapMarker(0xff9400D3));
+        heatMap.setMarkerCallback(new HeatMapMarkerCallback.CircleHeatMapMarker(this));
 
         Map<Float, Integer> colors = new ArrayMap<>();
         //build a color gradient in HSV from red at the center to green at the outside
-        for (int i = 0; i < 21; i++) {
-            float stop = ((float)i) / 20.0f;
-            //colors here are ids - deswegen 6 stellen --> example
-            //int primaryColor = getColor(R.color.colorPrimary); //definition im colors.xml
-            int color = doGradient(i * 5, 0, 100, 0xB22222, 0x008000);
-            colors.put(stop, color);
-        }
-//        colors.put(0.33f, Color.RED);
-//        colors.put(0.66f, Color.YELLOW);
-//        colors.put(1f, Color.GREEN);
+//        for (int i = 0; i < 21; i++) {
+//            float stop = ((float)i) / 20.0f;
+//            //colors here are ids - deswegen 6 stellen --> example
+//            //int primaryColor = getColor(R.color.colorPrimary); //definition im colors.xml
+//            int color = doGradient(i * 5, 0, 100, 0xB22222, 0x008000);
+//            colors.put(stop, color);
+//        }
+        colors.put(0.33f, Color.RED);
+        colors.put(0.66f, Color.YELLOW);
+        colors.put(1f, Color.GREEN);
 
        heatMap.setColorStops(colors);
 
@@ -106,8 +109,13 @@ public class ScanActivity extends AppCompatActivity {
             return;
         }
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        scanInfoService = new ScanInfoService(telephonyManager, this);
-        heatMapDrawService = new HeatMapDrawService(this);
+        Log.d("Data", "Starting the ScanInfo and heatMapDraw Service");
+        if(scanStart == false) {
+            scanInfoService = new ScanInfoService(telephonyManager, this);
+        }
+        if(heatMapStarted == false) {
+            heatMapDrawService = new HeatMapDrawService(this);
+        }
     }
 
     @Override

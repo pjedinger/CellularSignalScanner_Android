@@ -9,4 +9,35 @@
     <color name="colorSecondary">#BCDFFF</color>
     <color name="white">#FFFFFF</color>
     <color name="background">#70BAFF</color>
+    <color name="gradient0">#FF0000</color>
+    <color name="gradient1">#FF1100</color>
+    <color name="gradient2">#FF2300</color>
+    <color name="gradient3">#FF3400</color>
+    <color name="gradient4">#FF4600</color>
+    <color name="gradient5">#FF5700</color>
+    <color name="gradient6">#FF6900</color>
+    <color name="gradient7">#FF7B00</color>
+    <color name="gradient8">#FF8C00</color>
+    <color name="gradient9">#FF9E00</color>
+    <color name="gradient10">#FFAF00</color>
+    <color name="gradient11">#FFC100</color>
+    <color name="gradient12">#FFD300</color>
+    <color name="gradient13">#FFE400</color>
+    <color name="gradient14">#FFF600</color>
+    <color name="gradient15">#F7FF00</color>
+    <color name="gradient16">#E5FF00</color>
+    <color name="gradient17">#D4FF00</color>
+    <color name="gradient18">#C2FF00</color>
+    <color name="gradient19">#B0FF00</color>
+    <color name="gradient20">#9FFF00</color>
+    <color name="gradient21">#8DFF00</color>
+    <color name="gradient22">#7CFF00</color>
+    <color name="gradient23">#6AFF00</color>
+    <color name="gradient24">#58FF00</color>
+    <color name="gradient25">#47FF00</color>
+    <color name="gradient26">#35FF00</color>
+    <color name="gradient27">#24FF00</color>
+    <color name="gradient28">#12FF00</color>
+    <color name="gradient29">#00FF00</color>
+
 </resources>
