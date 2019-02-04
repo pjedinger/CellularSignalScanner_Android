@@ -5,7 +5,7 @@ import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 
 @Database(entities = {HistoryEntry.class}, version = 4)
-@TypeConverters({ScanInfoConverter.class})
+@TypeConverters({ScanDataPointConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract HistoryEntryDao historyEntryDao();
 }
