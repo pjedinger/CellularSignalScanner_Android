@@ -74,7 +74,6 @@ public class ScanActivity extends AppCompatActivity {
         heatMap.setMinimum(0.0);
         heatMap.setMaximum(100.0);
         heatMap.setRadius(1);
-        heatMap.setOpacity(0);
         //draw a dark violet circle at the location of each data point
         heatMap.setMarkerCallback(new HeatMapMarkerCallback.CircleHeatMapMarker(this));
 
@@ -175,9 +174,7 @@ public class ScanActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-       // scanInfoService.stopService(new Intent(this, ScanInfoService.class));
         scanInfoService.stopScanInfoService();
-
         if(historyEntry != null) {
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
             sp.edit().putInt("scanCount", sp.getInt("scanCount", 1) + 1).commit();
@@ -187,6 +184,5 @@ public class ScanActivity extends AppCompatActivity {
         }
         heatMapDrawService.stopHeatMapDrawService();
         this.finish();
-        //heatMapDrawService.stopService(new Intent(this, HeatMapDrawService.class));
     }
 }
